@@ -11,7 +11,6 @@ def compress(image_path, n_color=2, n_iterations=10, n_images=3, err_tol=100):
 
     calculated_image = np.ndarray(image.shape)
 
-    # for j in range(4):
     (centroids, clusters) = kmeans(n_color, image, n_iters=int(n_iterations))
     for key, value in clusters.items():
         calculated_image[key] = centroids[value]

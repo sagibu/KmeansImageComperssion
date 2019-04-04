@@ -43,11 +43,13 @@ def calculate_centroids(k, clusters, data):
     return centroids
 
 
-def kmeans(k, data, n_iters=10):
+def kmeans(k, data, n_iters=10, tolerance=5):
     centroids = randomize_centroids(k, data)
     for i in range(n_iters):
         clusters = cluster(centroids, data)
-        print(len(clusters))
-        centroids = calculate_centroids(k, clusters, data)
+        new_centroids = calculate_centroids(k, clusters, data)
+        if np.linalg.norm(np.subtract(list(centroids.values()), list(new_centroids.values()))) <= tolerance:
+            return new_centroids, clusters
+        centroids = new_centroids
 
     return centroids, clusters
